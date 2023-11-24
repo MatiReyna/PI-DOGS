@@ -1,5 +1,6 @@
 const { Dog, Temperament } = require('../DB_connection');
 const { getAllDogs } = require('./getAllDogs');
+const generarUUID = require('../auxiliary/createID');
 
 const postDog = async (name, height, weight, life_span, image, Temperament) => {
 
@@ -14,30 +15,34 @@ const postDog = async (name, height, weight, life_span, image, Temperament) => {
     // } else if (!name || !height || !weight || !life_span) {
     //     return ('Missing information')
     // } else {
-    //     const newDog = await Dog.create({
-    //         name: name,
+        const id = generarUUID(); 
+        const newDog = await Dog.create({
+            id: id,
+            name: name,
+            height: height,
+            weight: weight,
+            life_span: life_span,
+            image: image,
+        });
+
+        await newDog.addTemperament(Temperament)
+
+        return newDog
+    // }
+    // const newDog = await Dog.findOrCreate({
+    //     where: { name: name },
+    //     defaults: {
     //         height: height,
     //         weight: weight,
     //         life_span: life_span,
     //         image: image,
-    //     });
+    //         Temperament: Temperament
+    //     }
+    // })
 
-    //     await newDog.addTemperament(Temperament)
+    // await newDog.addTemperament(Temperament)
 
-    //     return newDog
-    // }
-    const newDog = await Dog.create({
-        name: name,
-        height: height,
-        weight: weight,
-        life_span: life_span,
-        image: image,
-        Temperament: Temperament
-    })
-
-    await newDog.addTemperament(Temperament)
-
-    return newDog
+    // return newDog
 };
 
 module.exports = {
