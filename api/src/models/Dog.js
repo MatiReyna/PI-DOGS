@@ -12,26 +12,72 @@ module.exports = (sequelize) => {
             unique: true,
             allowNull: false
         },
-        height: {
-            type: DataTypes.STRING,
+        minHeight: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 1,
+                max: 100
+            },
             allowNull: false
         },
-        weight: {
-            type: DataTypes.STRING,
+        maxHeight: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 1,
+                max: 100
+            },
             allowNull: false
         },
-        life_span: {
-            type: DataTypes.STRING,
+        // height: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false
+        // },
+        // weight: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false
+        // },
+        minWeight: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 1,
+                max: 100
+            },
+            allowNull: false
+        },
+        maxWeight: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 1,
+                max: 100
+            },
+            allowNull: false
+        },
+        // life_span: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false
+        // },
+        minLife_span: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 1,
+                max: 20
+            },
+            allowNull: false
+        },
+        maxLife_span: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 1,
+                max: 20
+            },
             allowNull: false
         },
         image: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        createDB: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: true
+        from: {  // PARA SABER SI VIENE DE LA API O DE LA DB
+            type: DataTypes.STRING
         },
     }, { timestamps: false })
 };
