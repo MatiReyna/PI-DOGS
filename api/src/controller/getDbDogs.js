@@ -8,22 +8,21 @@ const getDbDogs = async () => {
             attributes: ['name'],  // SOLO SE QUIERE EL NOMBRE DEL MODELO TEMPERAMENT
             through: { attrinutes: [] }
         }
-    })
+    });
 
-    const mapDogs = dbDog.map(dog => {  // SE MAPEA PARA HACER NUEVOS OBJETOS
+    const mapDogs = dbDog?.map((dog) => {  // SE MAPEA PARA HACER NUEVOS OBJETOS
         return {
             id: dog.id,
             name: dog.name,
-            heigth: dog.heigth,
+            height: dog.height,
             weight: dog.weight,
             life_span: dog.life_span,
             image: dog.image,
-            createDB: dog.createDB,
-            temperament: dog.temperament?.map(temperament => temperament.name)  // INCLUYE EL NOMBRE DEL PRIMER TEMPERAMENTE, EN CASO DE TENER MAS
+            from: dog.from,
+            temperament: dog.temperament?.map((tempe) => tempe.name)  // INCLUYE EL NOMBRE DEL PRIMER TEMPERAMENTE, EN CASO DE TENER MAS
         }
-    })
-    return mapDogs
-    //return dbDog
+    });
+    return mapDogs;
 };
 
 module.exports = {

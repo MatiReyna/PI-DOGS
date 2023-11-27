@@ -2,18 +2,17 @@ const axios = require('axios');
 const { API_KEY } = process.env;
 const { Temperament } = require('../DB_connection');
 
-const getTemperament = async () => {
+const getTemperament = async () => {  // FUNCION QUE OBTIENE LOS TEMP. DE LA API Y LOS GUARDA EN DB
 
-    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-    // ME TRAE LA PROMESA
+    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);  // ME TRAE LA PROMESA
 
-    apiUrl.data.forEach(element => {  // RECORRE LA PROMESA EN LA DATA
+    apiUrl.data.forEach((element) => {  // RECORRE LA PROMESA EN LA DATA
         if (element.temperament) {  // SI, POR CADA ELEMENTO TIENE UNA PROPIEDAD TEMPERAMENT
-            let tempe = element.temperament.split(', ')  // SI ENCUENTRA, LO GUARDA Y LO SEPARA
+            const tempe = element.temperament.split(', ')  // SI ENCUENTRA, LO GUARDA Y LO SEPARA
 
-            tempe.forEach(element => {  // SE RECORRE ESA VARIABLE
+            tempe.forEach((tempes) => {  // SE RECORRE ESA VARIABLE
                 Temperament.findOrCreate({  // BUSCA EN (DB) Y SI NO ENCUENTRA YA UNO, LO CREA
-                    where: { name: element }
+                    where: { name: tempes }
                 })
             });
         }

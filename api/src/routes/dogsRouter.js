@@ -4,21 +4,21 @@ const { getById } = require('../controller/getById');
 const { getAllByName } = require('../controller/getAllByName');
 const { getTemperament } = require('../controller/getTemperament');
 const { postDog } = require('../controller/postDog');
-const { Temperament } = require('../DB_connection');
+const { Temperament, Dog } = require('../DB_connection');
 
 const dogsRouter = Router();
 
 dogsRouter.get('/', async (req, res) => {
     try {
-        const { name } = req.query
+        const { name } = req.query;
 
-        await getTemperament()  // OBTENEMOS LOS TEMP. EXISTENTES PARA PODER ASOCIARLOS
+        // await getTemperament();  // OBTENEMOS LOS TEMP. EXISTENTES PARA PODER ASOCIARLOS
 
         if (name) {  // SI LLEGA UN PARAMETRO NAME, BUSCAMOS LOS PERROS QUE CIONCIDAN
-            const dogName = await getAllByName(name)
+            const dogName = await getAllByName(name);
             return res.status(200).json(dogName[0])  // ME TRAE EL OBJETO DEL PERRO Y NO EL ARRAY
-        } else {  // SI NO HAY PARAMETRO BUSCAMOS TODOS LOS PERROS
-            const allDogs = await getAllDogs()
+        } else {
+            const allDogs = await getAllDogs();  // SI NO HAY PARAMETRO BUSCAMOS TODOS LOS PERROS
             return res.status(200).json(allDogs)
         }
     } catch (error) {
@@ -28,9 +28,9 @@ dogsRouter.get('/', async (req, res) => {
 
 dogsRouter.get('/:id', async (req, res) => {
     try {
-        const { id } = req.params
+        const { id } = req.params;
 
-        const dogFind = await getById(id)
+        const dogFind = await getById(id);
 
         return res.status(200).json(dogFind)
     } catch (error) {
@@ -39,39 +39,28 @@ dogsRouter.get('/:id', async (req, res) => {
 });
 
 dogsRouter.post('/', async (req, res) => {
-    // try {
-    //     await getTemperament()  // OBTENEMOS LOS TEMPERAMENTOS EXISTENTES PARA ASOCIARLOS
-
-    //     const { name, height, weight, life_span, image, Temperaments } = req.body  // OBTENEMOS LOS DATOS DEL PERRO A AGREGAR
-
-    //     if (Temperaments.length === 0) {
-    //         return ('The dog has to have at least one temperament')
-    //     }
-
-    //     // CREAMOS UN NUEVO PERRO CON LA TABLA DE PERROS
-    //     const newDog = await postDog(name, height, weight, life_span, image)
-
-    //     //BUSCAMOS LOS OBJETOS DE TEMPERAMENTOS CORRESPONDIENTES Y LO ASOCIAMOS AL NUEVO PERRO
-    //     const dogTemperament = await Temperament.findAll({
-    //         where: {
-    //             name: Temperaments
-    //         }
-    //     })
-    //     await newDog.addTemperament(dogTemperament)
-
-    //     return res.status(200).json({ msg: `The dog ${newDog.name} was created with the ID: ${newDog.id}` })
-    // } catch (error) {
-    //     return res.status(500).send({ error: error.message })
-    // }
     try {
-        const { name, height, weight, life_span, image, Temperament } = req.body
+        const { name, height, weight, life_span, temperament, image, from } = req.body;  // OBTENEMOS LOS DATOS DEL PERRO A AGREGAR
 
-        if (!name || !height || !weight || !life_span || !image) {
-            return res.status(400).send('Missing require fields')
+        if (!name || !height || !weight || !life_span || !image || !temperament) {
+            throw Error('Falta informacion para crear el perro')
         } else {
-            const newDog = await postDog(name, height, weight, life_span, image, Temperament)
+            const newDog = await postDog(name, height, weight, life_span, image, temperament)
             return res.status(200).json(newDog)
         }
+
+        // const newDog = await postDog(name, height, weight, life_span, image, temperaments)
+
+        // //BUSCAMOS LOS OBJETOS DE TEMPERAMENTOS CORRESPONDIENTES Y LO ASOCIAMOS AL NUEVO PERRO
+
+        // const dogTemperament = await Temperament.findAll({
+        //     where: {
+        //         name: temperaments
+        //     }
+        // })
+        // await newDog.addTemperament(dogTemperament)
+
+        // return res.status(200).json({ msg: `The dog ${newDog.name} was created with the ID: ${newDog.id}` })
     } catch (error) {
         return res.status(500).send({ error: error.message })
     }
