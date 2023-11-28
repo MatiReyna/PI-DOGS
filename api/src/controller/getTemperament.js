@@ -4,7 +4,7 @@ const { Temperament } = require('../DB_connection');
 
 const getTemperament = async () => {  // FUNCION QUE OBTIENE LOS TEMP. DE LA API Y LOS GUARDA EN DB
 
-    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);  // ME TRAE LA PROMESA
+    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);  // HACEMOS LA PETICION A LA API
 
     apiUrl.data.forEach((element) => {  // RECORRE LA PROMESA EN LA DATA
         if (element.temperament) {  // SI, POR CADA ELEMENTO TIENE UNA PROPIEDAD TEMPERAMENT
