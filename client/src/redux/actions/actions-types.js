@@ -1,7 +1,9 @@
 export const GET_ALL_DOGS = 'GET_ALL_DOGS';
 export const GET_BY_ID = 'GET_BY_ID';
 export const GET_BY_NAME = 'GET_BY_NAME';
-export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
 export const CREATE_DOG = 'CREATE_DOG';
+export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
 export const FILTER_DOG_BY_TEMPERAMENT = 'FILTER_DOG_BY_TEMPERAMENT';
 export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const SORT_BY_WEIGHT = 'SORT_BY_WEIGHT';
+export const SEARCH_BREED = 'SEARCH_BREED';

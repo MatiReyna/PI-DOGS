@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store/store.js'
 
 // ACA CONFIGURAMOS EL DOM, CON SU PROVIDER DEL STORE DE REDUX Y SUS BROWSER ROUTER
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>

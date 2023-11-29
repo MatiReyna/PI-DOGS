@@ -68,6 +68,60 @@ const Reduce = (state = initialState, action) => {
                 ...state,
                 dogs: filterDogs.concat(filterDb)
             }
+        case 'ORDER_BY_NAME':
+            let sortedArray = action.payload === 'asc'?
+            state.dogs.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1
+                }
+                if (a.name < b.name) {
+                    return -1
+                }
+                return 0;
+            }) :
+            state.dogs.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return -1
+                }
+                if (a.name < b.name) {
+                    return 1
+                }
+            })
+            return {
+                ...state,
+                dogs:sortedArray 
+            }
+        case 'SORT_BY_WEIGHT':
+            const pesoOrdenado = (action.payload === "min") ?
+            state.dogs.sort((a, b) => {
+                if (a.weight.includes('NaN')) {
+                    return 1000
+                } else {
+                    if ((parseInt(a.weight.split(' - ')[0])) > parseInt(b.weight.split(' - ')[0])) return 1;
+                    if ((parseInt(a.weight.split(' - ')[0])) < parseInt(b.weight.split(' - ')[0])) return -1;
+                    return 0
+                }
+            }) :
+            state.dogs.sort((a, b) => {
+                if (a.weight.includes('NaN')) {
+                    return 1000
+                } else {
+                    if ((parseInt(a.weight.split(' - ')[0])) > parseInt(b.weight.split(' - ')[0])) return -1;
+                    if ((parseInt(a.weight.split(' - ')[0])) < parseInt(b.weight.split(' - ')[0])) return 1;
+                    return 0
+                }
+            })
+            return {
+                ...state,
+                dogs: pesoOrdenado 
+            }
+        case 'SEARCH_BREED':
+            return {
+                ...state,
+                search: action.payload
+            }
+        default:
+            return { ...state }
     }
 };
 
