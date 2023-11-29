@@ -5,6 +5,7 @@ const { getAllByName } = require('../controller/getAllByName');
 const { getTemperament } = require('../controller/getTemperament');
 const { postDog } = require('../controller/postDog');
 const { Temperament, Dog } = require('../DB_connection');
+// const { getByIdApi, getByIdDB } = require('../controller/getById')
 
 const dogsRouter = Router();
 
@@ -16,13 +17,13 @@ dogsRouter.get('/', async (req, res) => {
 
         if (name) {  // SI LLEGA UN PARAMETRO NAME, BUSCAMOS LOS PERROS QUE CIONCIDAN
             const dogName = await getAllByName(name);
-            return res.status(200).json(dogName[0])  // ME TRAE EL OBJETO DEL PERRO Y NO EL ARRAY
+            return res.status(200).json(dogName[0]);  // ME TRAE EL OBJETO DEL PERRO Y NO EL ARRAY
         } else {
             const allDogs = await getAllDogs();  // SI NO HAY PARAMETRO BUSCAMOS TODOS LOS PERROS
-            return res.status(200).json(allDogs)
+            return res.status(200).json(allDogs);
         }
     } catch (error) {
-        return res.status(400).send({ error: error.message })
+        return res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
 
@@ -40,30 +41,17 @@ dogsRouter.get('/:id', async (req, res) => {
 
 dogsRouter.post('/', async (req, res) => {
     try {
-        const { name, height, weight, life_span, temperament, image, from } = req.body;  // OBTENEMOS LOS DATOS DEL PERRO A AGREGAR
+        const { name, height, weight, life_span, image, temperaments } = req.body;
 
-        if (!name || !height || !weight || !life_span || !image || !temperament) {
-            throw Error('Falta informacion para crear el perro')
+        if (!name || !height || !weight || !life_span || !image) {
+            return res.status(400).json({ error: 'Missing required fields' });
         } else {
-            const newDog = await postDog(name, height, weight, life_span, image, temperament)
-            return res.status(200).json(newDog)
+            const newDog = await postDog(name, height, weight, life_span, image, temperaments)
+            return res.status(201).json(newDog); // STATUS CODE 201 SIGNIFICA CREATE
         }
-
-        // const newDog = await postDog(name, height, weight, life_span, image, temperaments)
-
-        // //BUSCAMOS LOS OBJETOS DE TEMPERAMENTOS CORRESPONDIENTES Y LO ASOCIAMOS AL NUEVO PERRO
-
-        // const dogTemperament = await Temperament.findAll({
-        //     where: {
-        //         name: temperaments
-        //     }
-        // })
-        // await newDog.addTemperament(dogTemperament)
-
-        // return res.status(200).json({ msg: `The dog ${newDog.name} was created with the ID: ${newDog.id}` })
-    } catch (error) {
-        return res.status(500).send({ error: error.message })
-    }
+    } catch(error) {
+        return res.status(500).json({ error: error.message });
+    };
 });
 
 module.exports = dogsRouter;

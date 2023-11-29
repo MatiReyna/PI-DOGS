@@ -6,23 +6,26 @@ const getDbDogs = async () => {
         include: {  // PARA INCLUIR INFO ADICIONAL A LA CONSULTA 
             model: Temperament,
             attributes: ['name'],  // SOLO SE QUIERE EL NOMBRE DEL MODELO TEMPERAMENT
-            through: { attrinutes: [] }
+            through: {
+                attrinutes: []
+            }
         }
     });
 
-    const mapDogs = dbDog?.map((dog) => {  // SE MAPEA PARA HACER NUEVOS OBJETOS
-        return {
-            id: dog.id,
-            name: dog.name,
-            height: dog.height,
-            weight: dog.weight,
-            life_span: dog.life_span,
-            image: dog.image,
-            from: dog.from,
-            temperament: dog.temperament?.map((tempe) => tempe.name)  // INCLUYE EL NOMBRE DEL PRIMER TEMPERAMENTE, EN CASO DE TENER MAS
-        }
-    });
-    return mapDogs;
+//     const mapDogs = dbDog?.map((dog) => {  // SE MAPEA PARA HACER NUEVOS OBJETOS
+//         return {
+//             id: dog.id,
+//             name: dog.name,
+//             height: dog.height,
+//             weight: dog.weight,
+//             life_span: dog.life_span,
+//             image: dog.image,
+//             from: dog.from,
+//             temperament: dog.temperament?.map((tempe) => tempe.name)  // INCLUYE EL NOMBRE DEL PRIMER TEMPERAMENTE, EN CASO DE TENER MAS
+//         }
+//     });
+//     return mapDogs;
+    return dbDog;
 };
 
 module.exports = {

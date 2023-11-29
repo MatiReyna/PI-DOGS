@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     {logging: false, native: false}
 );
 
-dogModel(sequelize);
+dogModel(sequelize);  // EJECUTAMOS LOS MODELOS PASANDOLE SEQUELIZE
 temperamentModel(sequelize);
 
 const { Dog, Temperament } = sequelize.models;  // RELACIONAMOS LOS MODELOS, HACEMOS DESTRUCTURING

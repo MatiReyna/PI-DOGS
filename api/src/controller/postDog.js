@@ -1,83 +1,58 @@
 const { Dog, Temperament } = require('../DB_connection');
-const { getAllDogs } = require('./getAllDogs');
-const { Op } = require('sequelize');
-const { getTemperament } = require('./getTemperament')
+// const { getAllDogs } = require('./getAllDogs');
+// const { Op } = require('sequelize');
+// const { getTemperament } = require('./getTemperament')
 const generarUUID = require('../auxiliary/createID');
 
-const postDog = async (name, height, weight, life_span, image, temperament) => {
+const postDog = async (name, height, weight, life_span, image, temperaments) => {
 
-    const responseDb = await Dog.findAll({
+    const toFind = await Dog.findOne({
         where: {
             name: name
         }
     });
 
-    if (responseDb) {
-        return ('Ya existe un perro con ese nombre')
-    }
+    if (toFind) {
+        return 'This Dog already exists'
+    } else {
+        const id = generarUUID();
+        const newDog = await Dog.create({
+            id: id,
+            name,
+            height,
+            weight,
+            life_span,
+            image,
+            from: 'DB'
+        });
 
-    const id = generarUUID(); 
-    const newDog = await Dog.create({
-        id: id,
-        name: name,
-        height: height,
-        weight: weight,
-        life_span: life_span,
-        image: image,
-        from: 'DB'
-    });
-
-    const TemperamentCount = await Temperament.count()
-
-    if (TemperamentCount === 0) {
-        await getTemperament()
-    }
-
-    const tempsEncontrados = await Promise.all(
-        temperament.map( async (tempe) => {
-            const tempEncontrado = await Temperament.findOne({
+        if (temperaments) {
+            const tempeFind = await Temperament.findAll({
                 where: {
-                    name: tempe
+                    name: temperaments
                 }
-            })
+            });
 
-            if (!tempEncontrado) {
-                throw Error('Tipo de temperamento no existe')
-            }
-            return tempEncontrado
-        })
-    );
+            await newDog.addTemperaments(tempeFind);
+        }
 
-    await newDog.addTemperament(tempsEncontrados)
+        const dogWithTemperament = await Dog.findByPk(newDog.id, {
+            include: Temperament
+        });
 
-    return newDog
+        const temperamentName = dogWithTemperament.Temperaments.map((tempe) => tempe.name);
 
-    // const dogs = await getAllDogs()  // OBTENGO LA LISTA COMPLETA DE LOS PERROS
-
-    // const nameLowerCase = name.toLowerCase()  // CONVERTIMOS EL NOMBRE EN MINUSCULA
-
-    // const dogName = dogs.find(dog => dog.name.toLowerCase() === nameLowerCase)  // BUSCO SI YA EXISTE EL PERRO Y LE SACO TODOS LOS ESPACIOS EN BLANCO
-
-    // if (dogName) {
-    //     return (`The name dog ${name} already exists`)
-    // } else if (!name || !height || !weight || !life_span) {
-    //     return ('Missing information')
-    // } else {
-    //     const id = generarUUID(); 
-    //     const newDog = await Dog.create({
-    //         id: id,
-    //         name,
-    //         height,
-    //         weight,
-    //         life_span,
-    //         image,
-    //         from: 'DB'
-    //     });
-
-    //     await newDog.addTemperament(Temperament)
-
-    //     return newDog
-    // }
+        return {
+            id: dogWithTemperament.id,
+            name: dogWithTemperament.name,
+            height: dogWithTemperament?.height,
+            weight: dogWithTemperament?.weight,
+            life_span: dogWithTemperament.life_span,
+            image: dogWithTemperament.image,
+            from: dogWithTemperament.from,
+            temperaments: temperamentName
+        }
+    }
 };
 
 module.exports = {
