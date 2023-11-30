@@ -8,8 +8,6 @@ const initialState = {
     temperaments: [],
     search: '',
     data: [],
-    loading: false,
-    error: null
 };
 
 const Reduce = (state = initialState, action) => {
