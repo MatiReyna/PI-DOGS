@@ -1,8 +1,7 @@
 const { Dog, Temperament } = require('../DB_connection');
-// const { getAllDogs } = require('./getAllDogs');
-// const { Op } = require('sequelize');
-// const { getTemperament } = require('./getTemperament')
-const generarUUID = require('../auxiliary/createID');
+const { Op } = require('sequelize');
+
+// const generarUUID = require('../auxiliary/createID');
 
 const postDog = async (name, height, weight, life_span, image, temperaments) => {
 
@@ -15,9 +14,9 @@ const postDog = async (name, height, weight, life_span, image, temperaments) => 
     if (toFind) {
         return 'This Dog already exists'
     } else {
-        const id = generarUUID();
+        // const id = generarUUID();
         const newDog = await Dog.create({
-            id: id,
+            // id: id,
             name,
             height,
             weight,
@@ -29,11 +28,13 @@ const postDog = async (name, height, weight, life_span, image, temperaments) => 
         if (temperaments) {
             const tempeFind = await Temperament.findAll({
                 where: {
-                    name: temperaments
+                    name: {
+                        [Op.in]: temperaments
+                    }
                 }
             });
 
-            await newDog.addTemperaments(tempeFind);
+            await newDog.setTemperaments(tempeFind);
         }
 
         const dogWithTemperament = await Dog.findByPk(newDog.id, {
