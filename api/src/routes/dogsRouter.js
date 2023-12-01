@@ -4,8 +4,6 @@ const { getById } = require('../controller/getById');
 const { getAllByName } = require('../controller/getAllByName');
 const { getTemperament } = require('../controller/getTemperament');
 const { postDog } = require('../controller/postDog');
-const { Temperament, Dog } = require('../DB_connection');
-// const { getByIdApi, getByIdDB } = require('../controller/getById')
 
 const dogsRouter = Router();
 
@@ -13,7 +11,7 @@ dogsRouter.get('/', async (req, res) => {
     try {
         const { name } = req.query;
 
-        // await getTemperament();  // OBTENEMOS LOS TEMP. EXISTENTES PARA PODER ASOCIARLOS
+        await getTemperament();  // OBTENEMOS LOS TEMP. EXISTENTES PARA PODER ASOCIARLOS
 
         if (name) {  // SI LLEGA UN PARAMETRO NAME, BUSCAMOS LOS PERROS QUE CIONCIDAN
             const dogName = await getAllByName(name);

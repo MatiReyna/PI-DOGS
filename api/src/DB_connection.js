@@ -1,8 +1,10 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;  // VARIABLES DE ENTORNO
 const dogModel = require('./models/Dog');
 const temperamentModel = require('./models/Temperaments');
+
+// CONFIGURACION DE SEQUELIZE
 
 const sequelize = new Sequelize(
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`,
@@ -14,7 +16,7 @@ temperamentModel(sequelize);
 
 const { Dog, Temperament } = sequelize.models;  // RELACIONAMOS LOS MODELOS, HACEMOS DESTRUCTURING
 
-Dog.belongsToMany(Temperament, { through: 'dog_temperament' });
+Dog.belongsToMany(Temperament, { through: 'dog_temperament' });  // SE CREA LA TABLA INTERMEDIA
 Temperament.belongsToMany(Dog, { through: 'dog_temperament' });
 
 module.exports = {

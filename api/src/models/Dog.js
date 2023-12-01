@@ -1,10 +1,6 @@
 const { DataTypes } = require('sequelize');
 
-// EXPORTAMOS UNA FUNCION QUE DEFINE EL MODELO
-// LUEGO LE INYECTAMOS LA CONEXION A SEQUELIZE
-
 module.exports = (sequelize) => {
-    // DEFINO EL MODELO
     sequelize.define('Dog', {
         id: {
             type: DataTypes.UUID,  // GENERA UN ID ALEATORIO UNICO
@@ -34,7 +30,7 @@ module.exports = (sequelize) => {
         },
         from: {
             type: DataTypes.STRING,
-            defaultValue: "DB"
+            defaultValue: "DB"  // ESTABLECE UN VALOR PREDETERMINADO SINO SE LE PROPORCIONA UNO
         },
     }, { timestamps: false })
 };

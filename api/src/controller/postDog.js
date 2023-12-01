@@ -1,22 +1,18 @@
 const { Dog, Temperament } = require('../DB_connection');
 const { Op } = require('sequelize');
 
-// const generarUUID = require('../auxiliary/createID');
+const postDog = async (name, height, weight, life_span, image, temperaments) => {  // FUNCION QUE CREA UN PERRO
 
-const postDog = async (name, height, weight, life_span, image, temperaments) => {
-
-    const toFind = await Dog.findOne({
+    const toFind = await Dog.findOne({  // BUSCA EN LA DB SI YA HAY UN PERRO CON ESE NOMBRE
         where: {
             name: name
         }
     });
 
-    if (toFind) {
+    if (toFind) {  // SI LO ENCUENTRA
         return 'This Dog already exists'
-    } else {
-        // const id = generarUUID();
+    } else {  // CASO CONTRARIO, LO CREA EN LA DB
         const newDog = await Dog.create({
-            // id: id,
             name,
             height,
             weight,
@@ -25,8 +21,8 @@ const postDog = async (name, height, weight, life_span, image, temperaments) => 
             from: 'DB'
         });
 
-        if (temperaments) {
-            const tempeFind = await Temperament.findAll({
+        if (temperaments) {  // SI TENGO TEMPERAMENTS
+            const tempeFind = await Temperament.findAll({  // SE BUSCA EN LA DB SI YA ESTAN
                 where: {
                     name: {
                         [Op.in]: temperaments
@@ -34,7 +30,7 @@ const postDog = async (name, height, weight, life_span, image, temperaments) => 
                 }
             });
 
-            await newDog.setTemperaments(tempeFind);
+            await newDog.setTemperaments(tempeFind);  // Y SE LO ASOCIA AL PERRO CREADO
         }
 
         const dogWithTemperament = await Dog.findByPk(newDog.id, {
