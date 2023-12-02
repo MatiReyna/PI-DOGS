@@ -1,5 +1,5 @@
-const server = require('./app');
-const { conn } = require('./DB_connection');
+const server = require('./app');  // IMPORTA EL SERVIDOR
+const { conn } = require('./DB_connection');  // IMPORTA LA CONEXION A LA DB
 
 conn.sync({ force: true }).then(() => {  // UNA VEZ TERMINADO SE PASA A FALSE
     server.listen(3001, () => {
@@ -8,5 +8,5 @@ conn.sync({ force: true }).then(() => {  // UNA VEZ TERMINADO SE PASA A FALSE
 })
     .catch((error) => { console.log('Error al conectar ', error) })
 
-// SINCRONIZAMOS LA BASE DE DATOS
+// SINCRONIZAMOS LA BASE DE DATOS conn.sync({ force:true }) INDICA QUE SE RECREA LA DB EN CADA REINICIO DEL SERVIDOR
 // LEVANTAMOS EL SERVIDOR EN EL PUERTO 3001

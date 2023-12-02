@@ -20,9 +20,9 @@ server.use((req, res, next) => {
     next();
 });
 
-server.use('/', router);
+server.use('/', router);  // CONFIGURACION DE RUTAS
 
-server.use((err, req, res, next) => {
+server.use((err, req, res, next) => {  // MANEJO DE ERRORES
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });

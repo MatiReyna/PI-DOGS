@@ -11,7 +11,18 @@ const getDbDogs = async () => {  // CONSULTA A LA BASE DE DATOS PARA OBTENER TOD
             }
         }
     });
-    return dbDog;
+    return dbDog.map((d) => {
+        return {
+            id: d.id,
+            name: d.name,
+            height: d.height,
+            weight: d.weight,
+            life_span: d.life_span,
+            image: d.image,
+            temperaments: d.Temperaments.map((t) => t.name),
+            from: 'DB'
+        }
+    });
 };
 
 module.exports = {

@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config();  // CARGA LAS VARIABLE DE ENTORNO
 const { Sequelize } = require('sequelize');
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;  // VARIABLES DE ENTORNO
 const dogModel = require('./models/Dog');
