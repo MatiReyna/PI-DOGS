@@ -7,8 +7,6 @@ import store from './redux/store/store.js';
 
 import './index.css';
 
-// ACA CONFIGURAMOS EL DOM, CON SU PROVIDER DEL STORE DE REDUX Y SUS BROWSER ROUTER
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>

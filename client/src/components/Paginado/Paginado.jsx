@@ -1,25 +1,16 @@
 import React from 'react';
 
-const Paginado = ({ dogsPerPage, dogs, paginado }) => {
-
-    const pageNumber = [];
-
-    for (let i = 0; i <= Math.floor(dogs/dogsPerPage); i++) {
-        pageNumber.push(i + 1)
-    }
-
+const Paginado = ({ currentPage, totalPages, handlePageChange }) => {
     return (
-        <nav>
-            <div>
-                {
-                    pageNumber?.map(number => (
-                        <div key={number}>
-                            <button type='button' onClick={() => paginado(number)}>{number}</button>
-                        </div>
-                    ))
-                }
-            </div>
-        </nav>  
+        <div>
+            {
+                Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                    <button key={page} onClick={() => handlePageChange(page)} disabled={currentPage === page}>
+                        {page}
+                    </button>
+                )) 
+            }
+        </div>
     )
 };
 
