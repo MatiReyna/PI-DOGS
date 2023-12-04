@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
 import { getAllDogs, pageChange, filterByTemperament, orderByName, filterByWeight } from '../../redux/actions/actions';
 import { Link } from 'react-router-dom';
 
@@ -11,21 +10,15 @@ import Paginado from '../Paginado/Paginado';
 const HomePage = () => {
 
     const dispatch = useDispatch();
-    const filteredDogs = useSelector((state) => state.filteredDogs);
+
     const currentPage = useSelector((state) => state.currentPage);
     const dogsPerPage = useSelector((state) => state.dogsPerPage);
     const temperaments = useSelector((state) => state.temperaments);
+    const filteredDogs = useSelector((state) => state.filteredDogs);
+    const sortCriteria = useSelector((state) => state.sortCriteria);
+    const sortOrder = useSelector((state) => state.sortOrder);
 
-    const [ selectedTemperament, setSelectedTemperament ] = useState('');
-    const [ sortOrden, setSortOrden ] = useState('asc');
-    const [ sortCriterial, setSortCriterial ] = useState('name'); 
-
-    const indexOfLastPage = currentPage * dogsPerPage;
-    const indexOfFirstPage = indexOfLastPage - dogsPerPage;
-    const currentDogs = filteredDogs.slice(indexOfFirstPage, indexOfLastPage);
-
-    const totalDogs = filteredDogs.length;
-    const totalPages = Math.ceil(totalDogs / dogsPerPage);
+    const [selectedTemperament, setSelectedTemperament] = useState('');
 
     useEffect(() => {
         dispatch(getAllDogs())
@@ -35,41 +28,48 @@ const HomePage = () => {
         dispatch(pageChange(pageNumber))
     };
 
-    const handleTemperamentFilter = (temperament) => {
-        dispatch(filterByTemperament(temperament))
+    const handleTemperamentFilter = () => {
+        dispatch(filterByTemperament(selectedTemperament))
     };
 
-    const handleSortChange = (criteria) => {
-        setSortCriterial(criteria);
-        dispatch(orderByName(sortCriterial, sortOrden))
+    const handleSortChange = (value) => {
+        dispatch(orderByName(value, sortOrder))
     };
 
-    const handleSortOrdenChange = () => {
-        const newOrder = sortOrden === 'asc' ? 'desc' : 'asc';
-        setSortOrden(newOrder);
-        dispatch(filterByWeight(sortCriterial, newOrder))
+    const handleSortOrderChange = () => {
+        dispatch(filterByWeight(sortCriteria, sortOrder === 'asc'? 'desc' : 'asc'))
     };
+
+    const indexOfLastPage = currentPage * dogsPerPage;
+    const indexOfFirstPage = indexOfLastPage - dogsPerPage;
+    const currentDogs = filteredDogs.slice(indexOfFirstPage, indexOfLastPage);
+    const totalDogs = filteredDogs.length;
+    const totalPages = Math.ceil(totalDogs / dogsPerPage);
 
     return (
         <div>
             <Link to='/'>
-                <button>APP DOG</button>
+                <button>Back App Dog</button>
             </Link>
 
-            <div className='filter-controls'>
+            <Link to='/form'>
+                <button>Create Dog</button>
+            </Link>
+
+            <div>
                 <div>
                     <label>Filter by Temperament:</label>
                     <select onChange={(e) => setSelectedTemperament(e.target.value)}>
                         <option value=''>All</option>
                         {
-                            temperaments.map((temperamet) => (
-                                <option key={temperamet} value={temperamet}>
-                                    {temperamet}
+                            temperaments.map((temperament) => (
+                                <option key={temperament} value={temperament}>
+                                    {temperament}
                                 </option>
                             ))
                         }
                     </select>
-                    <button onClick={() => handleTemperamentFilter(selectedTemperament)}>Apply</button>
+                    <button onClick={handleTemperamentFilter}>Apply Temperament Filter</button>
                 </div>
                 <div>
                     <label>Sort by:</label>
@@ -77,12 +77,12 @@ const HomePage = () => {
                         <option value='name'>Name</option>
                         <option value='weight'>Weight</option>
                     </select>
-                    <button onClick={handleSortOrdenChange}>Change Order</button>
+                    <button onClick={handleSortOrderChange}>Toggle Sort Order</button>
                 </div>
             </div>
-            
+
             <SearchBar />
-            
+
             <div>
                 {
                     currentDogs.map((dog) => (
@@ -92,13 +92,6 @@ const HomePage = () => {
             </div>
 
             <div>
-                {/* {
-                    Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                        <button key={page} onClick={() => handlePageChange(page)}>
-                            {page}
-                        </button>
-                    ))
-                } */}
                 <Paginado currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
             </div>
         </div>

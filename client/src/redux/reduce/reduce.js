@@ -3,6 +3,7 @@ const initialState = {
     dogsDetail: null,
     filteredDogs: [],
     temperaments: [],
+    searchResults: [],
     ordenBy: '',
     sortBy: '',
     currentPage: 1,
@@ -40,7 +41,7 @@ const Reduce = (state = initialState, action) => {
             }
         case 'FILTER_DOG_BY_TEMPERAMENT':
             const filterBytemperaments = state.dogs.filter((d) =>
-                d.temperaments);
+                d.temperaments.includes(action.payload));
             return {
                 ...state,
                 filteredDogs: filterBytemperaments
@@ -65,7 +66,11 @@ const Reduce = (state = initialState, action) => {
                 filteredDogs: sortedByWeight,
                 ordenBy: state.ordenBy === 'asc' ? 'desc' : 'asc'
             }
-        
+        case 'SEARCH_BREED':
+            return {
+                ...state,
+                searchResults: action.payload
+            }
         case 'PAGINATE':
             return {
                 ...state,
@@ -73,7 +78,7 @@ const Reduce = (state = initialState, action) => {
             }
         default:
             return { ...state }
-    }     
+    }
 };
 
 export default Reduce;

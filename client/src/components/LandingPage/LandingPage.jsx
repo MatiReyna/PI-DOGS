@@ -7,10 +7,10 @@ const LandingPage = () => {
     return (
         <div className='LandingPage'>
             <img className='img' src='https://demascotas.info/wp-content/uploads/2020/05/imagenes-perros-monos.jpg' alt='' />
-    
+
             <div className='container'>
                 <Link to='/home'>
-                 <button>GO DOGS 🐶</button>
+                    <button>GO DOGS 🐶</button>
                 </Link>
             </div>
         </div>

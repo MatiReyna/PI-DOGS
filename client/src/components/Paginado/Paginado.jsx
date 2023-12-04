@@ -1,17 +1,19 @@
 import React from 'react';
 
+// import './Paginado.style.css';
+
 const Paginado = ({ currentPage, totalPages, handlePageChange }) => {
-    return (
-        <div>
-            {
-                Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                    <button key={page} onClick={() => handlePageChange(page)} disabled={currentPage === page}>
-                        {page}
-                    </button>
-                )) 
-            }
-        </div>
-    )
+  return (
+    <div>
+      {
+        Array(totalPages).fill(null).map((_, index) => (
+          <button key={index + 1} onClick={() => handlePageChange(index + 1)} disabled={currentPage === index + 1}>
+            {index + 1}
+          </button>
+        ))
+      }
+    </div>
+  )
 };
 
 export default Paginado;
