@@ -15,7 +15,7 @@ dogsRouter.get('/', async (req, res) => {
 
         if (name) {  // SI LLEGA UN PARAMETRO NAME, BUSCAMOS LOS PERROS QUE CIONCIDAN
             const dogName = await getAllByName(name);
-            return res.status(200).json(dogName[0]);  // ME TRAE EL OBJETO DEL PERRO Y NO EL ARRAY
+            return res.status(200).json(dogName);  // ME TRAE EL OBJETO DEL PERRO Y NO EL ARRAY
         } else {
             const allDogs = await getAllDogs();  // SI NO HAY PARAMETRO BUSCAMOS TODOS LOS PERROS
             return res.status(200).json(allDogs);
