@@ -1,8 +1,14 @@
+.visualizacion {
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
 .container-form form {
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #282c36;
+    margin: 1px;
+    padding: 25px;
+    background-color: #ffbf69;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #fff;
@@ -10,27 +16,26 @@
 
 .container-form h2 {
     text-align: center;
-    color: #61dafb;
+    color: #0a0908;
 }
 
 .container-form label {
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 14px;
+    color: #0a0908;
 }
 
 .container-form input,
 select {
     width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
+    margin-top: 3px;
     box-sizing: border-box;
-    border: 1px solid #333;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: #40444e;
-    color: #fff;
+    border: 0.8px solid #000814;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #ffffff;
 }
 
 .container-form select {
@@ -61,15 +66,29 @@ select {
     background-color: #e9edc9;
 }
 
-.container-form button,
-input[type="submit"] {
-    margin-top: 15px;
+.button-create button {
+    font-family: 'Lucida Console', Monaco, monospace;
+    font-weight: bold;
+    font-size: 1em;
+    /* Tamaño de la letra */
+    padding: 8px 15px;
+    /* Ajusta el relleno según sea necesario */
+    background-color: #2ec4b6;
+    /* Color terciario de la paleta */
+    color: #000814;
+    /* Color de acento 2 de la paleta */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    /* Efecto de transición suave en el cambio de color de fondo */
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* .container-form button.goBack {
-    background-color: #40444e;
-  }
-  
-  .container-form button.goBack:hover {
-    background-color: #090a0b;
-  } */
+.button-create button:hover {
+    background-color: #cbf3f0;
+}
+
+.error-message {
+    color: #9d0208;
+}

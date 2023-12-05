@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllDogs, pageChange, filterByTemperament, orderByName, filterByWeight, getTemperaments, originFrom } from '../../redux/actions/actions';
-import { Link } from 'react-router-dom';
 
-import SearchBar from '../SearchBar/SearchBar';
 import Card from '../Card/Card';
 import Paginado from '../Paginado/Paginado';
 import NavBar from '../NavBar/NavBar';
+
+import './HomePage.style.css';
 
 const HomePage = () => {
 
@@ -16,7 +16,6 @@ const HomePage = () => {
     const dogsPerPage = useSelector((state) => state.dogsPerPage);
     const temperaments = useSelector((state) => state.temperaments);
     const filteredDogs = useSelector((state) => state.filteredDogs);
-    const sortCriteria = useSelector((state) => state.sortCriteria);
     const sortOrder = useSelector((state) => state.sortOrder);
 
     const [selectedTemperament, setSelectedTemperament] = useState('');
@@ -39,10 +38,6 @@ const HomePage = () => {
         dispatch(orderByName(value, sortOrder))
     };
 
-    const handleSortOrderChange = () => {
-        dispatch(filterByWeight(sortCriteria, sortOrder === 'asc'? 'desc' : 'asc'))
-    };
-
     const handleOrigin = (event) => {
         dispatch(originFrom(event.target.value))
     };
@@ -56,15 +51,8 @@ const HomePage = () => {
     return (
         <div>
             <NavBar />
-            {/* <Link to='/'>
-                <button>Back App Dog</button>
-            </Link>
-
-            <Link to='/form'>
-                <button>Create Dog</button>
-            </Link> */}
-
-            <div>
+           
+            <div className='container-home'>
                 <div>
                     <label>Filter by Temperament:</label>
                     <select onChange={(e) => setSelectedTemperament(e.target.value)}>
@@ -85,7 +73,6 @@ const HomePage = () => {
                         <option value='name'>Name</option>
                         <option value='weight'>Weight</option>
                     </select>
-                    {/* <button onClick={handleSortOrderChange}>Toggle Sort Order</button> */}
                 </div>
                 <div>
                     <label>Origin:</label>
@@ -96,9 +83,6 @@ const HomePage = () => {
                     </select>
                 </div>
             </div>
-
-            {/* <NavBar /> */}
-
             <div>
                 {
                     currentDogs.map((dog) => (

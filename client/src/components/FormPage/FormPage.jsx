@@ -63,7 +63,9 @@ const FormPage = () => {
             {
                 isDogCreated && <p>Dog created successfully!</p>
             }
-            <img src={formData.image} width= '400px' height='300px'/>
+            <div>
+                <img className='visualizacion' src={formData.image} width='400px' height='300px' />
+            </div>
             <form onSubmit={handleSubmit}>
                 <label>Name</label>
                 <input
@@ -117,7 +119,9 @@ const FormPage = () => {
                     }
                 </select>
                 {formErrors.temperaments && <p className='error-message'>{formErrors.temperaments}</p>}
-                <button type='submit' disabled={Object.keys(formErrors).length === 0 ? false : true}>Create Dog</button>
+                <div className='button-create'>
+                    <button type='submit' disabled={Object.keys(formErrors).length === 0 ? false : true}>Create Dog</button>
+                </div>
             </form>
             <button onClick={handleGoBack}>Go Back to Home</button>
         </div>
