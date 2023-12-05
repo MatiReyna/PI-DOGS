@@ -1,7 +1,7 @@
 const server = require('./app');  // IMPORTA EL SERVIDOR
 const { conn } = require('./DB_connection');  // IMPORTA LA CONEXION A LA DB
 
-conn.sync({ force: true }).then(() => {  // UNA VEZ TERMINADO SE PASA A FALSE
+conn.sync({ force: false }).then(() => {  // UNA VEZ TERMINADO SE PASA A FALSE
     server.listen(3001, () => {  // LO PONEMOS A ESCUCHAR
         console.log('Server listening on port 3001')  // IMPRIME EN LA CONSOLA
     })
