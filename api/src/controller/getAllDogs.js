@@ -7,7 +7,7 @@ const getAllDogs = async () => {  // FUNCION QUE COMBIANAN DATOS DE LA API Y DE 
 
     const dbDog = await getDbDogs();  // SE TRAE TODOS LOS PERROS DE LA DB
 
-    const allDogs = apiDog.concat(dbDog);  // UNIMOS LA DOS FUENTES DE DATOS DE LA API Y LA DB
+    const allDogs = dbDog.concat(apiDog);  // UNIMOS LA DOS FUENTES DE DATOS DE LA API Y LA DB
 
     return allDogs;  // SE RETORNA TODOS LOS PERROS
 };
