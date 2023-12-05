@@ -25,7 +25,7 @@ const postDog = async (name, height, weight, life_span, image, temperaments) => 
             const tempeFind = await Temperament.findAll({  // SE BUSCA EN LA DB SI YA ESTAN
                 where: {
                     name: {
-                        [Op.in]: temperaments
+                        [Op.in]: temperaments  // BUSCAR TEMP. EXISTENTES 
                     }
                 }
             });
