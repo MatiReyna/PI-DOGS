@@ -6,13 +6,13 @@ import HomePage from './components/HomePage/HomePage';
 import Detail from './components/Detail/Detail';
 import FormPage from './components/FormPage/FormPage';
 
-// import './App.css';
+import './App.css';
 
 const App = () => {
   return (
     <div>
-      <Routes>
-        <Route path='/' element={ <LandingPage /> } />
+      <Routes> 
+        <Route path='/' element={ <LandingPage /> } /> 
         <Route path='/home' element={ <HomePage /> } />
         <Route path='home/detail/:id' element={ <Detail /> } />
         <Route path='/form' element={ <FormPage /> } />

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllDogs, pageChange, filterByTemperament, orderByName, filterByWeight } from '../../redux/actions/actions';
+import { getAllDogs, pageChange, filterByTemperament, orderByName, filterByWeight, getTemperaments, originFrom } from '../../redux/actions/actions';
 import { Link } from 'react-router-dom';
 
 import SearchBar from '../SearchBar/SearchBar';
 import Card from '../Card/Card';
 import Paginado from '../Paginado/Paginado';
+import NavBar from '../NavBar/NavBar';
 
 const HomePage = () => {
 
@@ -22,6 +23,7 @@ const HomePage = () => {
 
     useEffect(() => {
         dispatch(getAllDogs())
+        dispatch(getTemperaments())
     }, [dispatch]);
 
     const handlePageChange = (pageNumber) => {
@@ -29,6 +31,7 @@ const HomePage = () => {
     };
 
     const handleTemperamentFilter = () => {
+        dispatch(pageChange(1))
         dispatch(filterByTemperament(selectedTemperament))
     };
 
@@ -40,6 +43,10 @@ const HomePage = () => {
         dispatch(filterByWeight(sortCriteria, sortOrder === 'asc'? 'desc' : 'asc'))
     };
 
+    const handleOrigin = (event) => {
+        dispatch(originFrom(event.target.value))
+    };
+
     const indexOfLastPage = currentPage * dogsPerPage;
     const indexOfFirstPage = indexOfLastPage - dogsPerPage;
     const currentDogs = filteredDogs.slice(indexOfFirstPage, indexOfLastPage);
@@ -48,23 +55,24 @@ const HomePage = () => {
 
     return (
         <div>
-            <Link to='/'>
+            <NavBar />
+            {/* <Link to='/'>
                 <button>Back App Dog</button>
             </Link>
 
             <Link to='/form'>
                 <button>Create Dog</button>
-            </Link>
+            </Link> */}
 
             <div>
                 <div>
                     <label>Filter by Temperament:</label>
                     <select onChange={(e) => setSelectedTemperament(e.target.value)}>
-                        <option value=''>All</option>
+                        <option value='All'>All</option>
                         {
                             temperaments.map((temperament) => (
-                                <option key={temperament} value={temperament}>
-                                    {temperament}
+                                <option key={temperament.id} value={temperament.name}>
+                                    {temperament.name}
                                 </option>
                             ))
                         }
@@ -77,11 +85,19 @@ const HomePage = () => {
                         <option value='name'>Name</option>
                         <option value='weight'>Weight</option>
                     </select>
-                    <button onClick={handleSortOrderChange}>Toggle Sort Order</button>
+                    {/* <button onClick={handleSortOrderChange}>Toggle Sort Order</button> */}
+                </div>
+                <div>
+                    <label>Origin:</label>
+                    <select onChange={handleOrigin}>
+                        <option value='All'>All</option>
+                        <option value='API'>API</option>
+                        <option value='DB'>DB</option>
+                    </select>
                 </div>
             </div>
 
-            <SearchBar />
+            {/* <NavBar /> */}
 
             <div>
                 {

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import imagen from '../../../utils/dog-landingpage.png';
 import './LandingPage.style.css';
 
 const LandingPage = () => {
     return (
-        <div className='LandingPage'>
-            <img className='img' src='https://demascotas.info/wp-content/uploads/2020/05/imagenes-perros-monos.jpg' alt='' />
+        <div className='container'>
+            <img className='imagen' src={imagen} alt='Dog Landing Page' />
 
-            <div className='container'>
+            <div>
                 <Link to='/home'>
                     <button>GO DOGS 🐶</button>
                 </Link>

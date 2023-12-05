@@ -1,0 +1,40 @@
+.searchbar button {
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+  /* Tamaño de la letra */
+  padding: 8px 15px;
+  /* Ajusta el relleno según sea necesario */
+  background-color: #ccd5ae;
+  /* Color terciario de la paleta */
+  color: #000814;
+  /* Color de acento 2 de la paleta */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Efecto de transición suave en el cambio de color de fondo */
+  border-radius: 47%;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.searchbar button:hover {
+  background-color: #e9edc9;
+  /* Cambia al color principal de la paleta al pasar el ratón por encima */
+  transform: scale(1);
+}
+
+.searchbar input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 1px solid #ccd5ae;
+  /* Color del borde */
+  outline: none;
+  font-size: 1em;
+  color: #353535;
+  /* Color del texto */
+  transition: border-bottom 0.3s ease;
+  /* Transición suave para el borde inferior */
+  margin: 3px;
+}

@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { GET_ALL_DOGS, GET_BY_ID, GET_BY_NAME, GET_TEMPERAMENTS, CREATE_DOG, FILTER_DOG_BY_TEMPERAMENT, ORDER_BY_NAME, SORT_BY_WEIGHT, PAGINATE, SEARCH_BREED } from './actions-types';
+import { GET_ALL_DOGS, GET_BY_ID, GET_BY_NAME, GET_TEMPERAMENTS, CREATE_DOG, FILTER_DOG_BY_TEMPERAMENT, ORDER_BY_NAME, SORT_BY_WEIGHT, PAGINATE, SEARCH_BREED, ORIGIN_DOG } from './actions-types';
 
-export const getAllDogs = () => {  // ACCION PARA OBTENER TODOS LOS PERROS
+export const getAllDogs = () => {  // OBTIENE TODAS LAS RAZAS DE LOS PERROS
     return async function (dispatch) {
         try {
             const response = await axios.get('http://localhost:3001/dogs');
             const dogs = response.data;
             dispatch({
                 type: GET_ALL_DOGS,
-                payload: dogs
+                payload: dogs  // ACTUALIZA EL ESTADO CON TODOS LOS PERROS
             });
         } catch (error) {
             console.log('Error fetching dogs:', error)
@@ -23,7 +23,7 @@ export const getById = (id) => {  // ACCION PARA OBTENER UN PERRO POR ID
             const dog = response.data;
             dispatch({
                 type: GET_BY_ID,
-                payload: dog
+                payload: dog  // ACTUALIZA EL ESTADO CON EL PERRO SOLICITADO
             });
         } catch (error) {
             console.log('Error fetching dog by ID:', error)
@@ -38,7 +38,7 @@ export const getByName = (name) => {  // ACCION PARA OBTENER UN PERRO POR NOMBRE
             const dogName = response.data;
             dispatch({
                 type: GET_BY_NAME,
-                payload: dogName
+                payload: dogName  // ACTUALIZA EL ESTADO CON EL PERRO SOLICITADO
             });
         } catch (error) {
             console.log('Error fetching dog by name:', error)
@@ -49,7 +49,7 @@ export const getByName = (name) => {  // ACCION PARA OBTENER UN PERRO POR NOMBRE
 export const createDog = (dogData) => {  // ACCION PARA CREAR UN PERRO NUEVO
     return async function (dispatch) {
         try {
-            const response = await axios.post('http://localhost:3001/dogs', dogData);
+            const response = await axios.post('http://localhost:3001/dogs', dogData);  // ENVIA LOS DATOS 
             dispatch({
                 type: CREATE_DOG,
                 payload: response.data
@@ -98,7 +98,7 @@ export const filterByWeight = (payload) => {  // ACCION PARA ORDENAR LA LISTA DE
     }
 };
 
-export const searchBreed = (name) => {
+export const searchBreed = (name) => {  // BUSCA UNA RAZA POR NOMBRE
     return async function (dispatch) {
         try {
             const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
@@ -119,5 +119,12 @@ export const pageChange = (payload) => {  // ACCION PARA CAMBIAR LA PAGINA DE LA
             type: PAGINATE,
             payload: payload
         });
+    }
+};
+
+export const originFrom = (payload) => {  // PARA OBTENER PERROS DE SU ORIGEN
+    return {
+        type: ORIGIN_DOG,
+        payload: payload
     }
 };

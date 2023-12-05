@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDog, getTemperaments } from '../../redux/actions/actions';
+import validateForm from './validation';
+
+import './FormPage.style.css';
 
 const FormPage = () => {
 
@@ -13,15 +16,18 @@ const FormPage = () => {
         height: '',
         weight: '',
         life_span: '',
-        image: '',
+        image: 'https://i.pinimg.com/736x/2c/56/02/2c5602ba6b8eb508ff37e1d533bd0204.jpg',
         temperaments: []
     });
 
     const [isDogCreated, setIsDogCreated] = useState(false);
 
+    const [formErrors, setFormErrors] = useState({});
+
     useEffect(() => {
         dispatch(getTemperaments())
-    }, [dispatch]);
+        setFormErrors(validateForm(formData))
+    }, [formData]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -37,6 +43,8 @@ const FormPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log('desactivado')
+
         try {
             await dispatch(createDog(formData))
             setIsDogCreated(true)
@@ -50,11 +58,12 @@ const FormPage = () => {
     };
 
     return (
-        <div>
+        <div className='container-form'>
             <h2>Create a NEW DOG</h2>
             {
                 isDogCreated && <p>Dog created successfully!</p>
             }
+            <img src={formData.image} width= '400px' height='300px'/>
             <form onSubmit={handleSubmit}>
                 <label>Name</label>
                 <input
@@ -64,6 +73,7 @@ const FormPage = () => {
                     onChange={handleInputChange}
                     required
                 />
+                {formErrors.name && <p className='error-message'>{formErrors.name}</p>}
                 <label>Height</label>
                 <input
                     type="text"
@@ -71,6 +81,7 @@ const FormPage = () => {
                     value={formData.height}
                     onChange={handleInputChange}
                 />
+                {formErrors.height && <p className='error-message'>{formErrors.height}</p>}
                 <label>Weight:</label>
                 <input
                     type="text"
@@ -78,6 +89,7 @@ const FormPage = () => {
                     value={formData.weight}
                     onChange={handleInputChange}
                 />
+                {formErrors.weight && <p className='error-message'>{formErrors.weight}</p>}
                 <label>Life Span</label>
                 <input
                     type="text"
@@ -85,6 +97,7 @@ const FormPage = () => {
                     value={formData.life_span}
                     onChange={handleInputChange}
                 />
+                {formErrors.life_span && <p className='error-message'>{formErrors.life_span}</p>}
                 <label>Image URL:</label>
                 <input
                     type="text"
@@ -92,6 +105,7 @@ const FormPage = () => {
                     value={formData.image}
                     onChange={handleInputChange}
                 />
+                {formErrors.image && <p className='error-message'>{formErrors.image}</p>}
                 <label>Temperaments:</label>
                 <select multiple name='temperaments' value={formData.temperaments} onChange={handleTemperamentChange}>
                     {
@@ -102,7 +116,8 @@ const FormPage = () => {
                         ))
                     }
                 </select>
-                <button type="submit">Create Dog</button>
+                {formErrors.temperaments && <p className='error-message'>{formErrors.temperaments}</p>}
+                <button type='submit' disabled={Object.keys(formErrors).length === 0 ? false : true}>Create Dog</button>
             </form>
             <button onClick={handleGoBack}>Go Back to Home</button>
         </div>

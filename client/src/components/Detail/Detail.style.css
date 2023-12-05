@@ -1,0 +1,89 @@
+.fondo-detail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  /* Mueve la imagen al fondo */
+}
+
+.card-detail {
+  display: inline-block;
+  /* Muestra las cartas en línea, una al lado de la otra */
+  width: 40%;
+  /* Ancho del contenedor, 4 cartas por fila */
+  margin: 10px;
+  /* Espaciado entre las cartas */
+  background-color: #d4a373;
+  /* Color secundario de la paleta */
+  border-radius: 25px;
+  /* Bordes redondeados */
+  overflow: hidden;
+  /* Para que los bordes redondeados se apliquen correctamente */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+  transition: transform 0.3s ease;
+  /* Efecto de transición suave al pasar el ratón por encima */
+}
+
+.card-detail:hover {
+  transform: scale(1.05);
+  /* Aumenta el tamaño al pasar el ratón por encima */
+}
+
+.card-detail img {
+  width: 100%;
+  /* La imagen ocupa todo el ancho del contenedor */
+  height: auto;
+  /* Mantiene la proporción de la imagen */
+  border-bottom: 1px solid #000814;
+  /* Borde inferior con color de acento 1 */
+}
+
+.card-detail h2 {
+  font-size: 1.5em;
+  /* Tamaño de la letra */
+  color: #000814;
+  /* Color principal de la paleta */
+  margin-bottom: 10px;
+  /* Espaciado inferior */
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-weight: bold;
+}
+
+.card-detail p {
+  font-size: 1em;
+  /* Tamaño de la letra */
+  color: #000814;
+  /* Color de acento 2 de la paleta */
+  margin-bottom: 5px;
+  /* Espaciado inferior */
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-weight: bold;
+}
+
+.card-detail button {
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-weight: bold;
+  font-size: 1em;
+  /* Tamaño de la letra */
+  padding: 8px 15px;
+  /* Ajusta el relleno según sea necesario */
+  background-color: #ccd5ae;
+  /* Color terciario de la paleta */
+  color: #000814;
+  /* Color de acento 2 de la paleta */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  /* Efecto de transición suave en el cambio de color de fondo */
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-detail button:hover {
+  background-color: #e9edc9;
+  /* Cambia al color principal de la paleta al pasar el ratón por encima */
+}
