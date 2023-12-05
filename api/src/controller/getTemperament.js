@@ -24,9 +24,9 @@ const getTemperament = async () => {  // FUNCION QUE OBTIENE LOS TEMP. DE LA API
         // LOS CREA EN LA BASE DE DATOS
         
         const createdTemps = await Temperament.bulkCreate(
-            tempsOrder.map(tempe => ({ name: tempe }))
+            tempsOrder.map(tempe => ({ name: tempe }))  // LO CREA CON UN OBJETO
         );
-        return createdTemps.map((tempe) => tempe.name);
+        return createdTemps.map((tempe) => tempe.name);  // RETORNA SOLO EL NAME
     }
 };
 

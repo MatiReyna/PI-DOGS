@@ -12,5 +12,5 @@ module.exports = (sequelize) => {
             allowNull: false,
             unique: true
         },
-    }, { timestamps: false })
+    }, { timestamps: false })  // OBJETO DE OPCIONES QUE DESACTIVA LA CREACION AUTOMATICA DE CAMPOS
 };

@@ -6,12 +6,12 @@ const getDbDogs = async () => {  // CONSULTA A LA BASE DE DATOS PARA OBTENER TOD
         include: {  // PARA INCLUIR INFO ADICIONAL DEL MODELO TEMPERAMENT
             model: Temperament,
             attributes: ['name'],  // SOLO SE QUIERE EL NOMBRE DEL MODELO TEMPERAMENT
-            through: {
-                attributes: []
+            through: {  // SE UTILIZA PARA ESPECIFICAR LA TABLA INTERMEDIA
+                attributes: []  // PARA NO INCLUIR NINGUNA PROPIEDAD DE LA TABLA INTERMEDIA
             }
         }
     });
-    return dbDog.map((d) => {
+    return dbDog.map((d) => {  // MAPEA EL PERRO ENCONTRADO Y CREA UN OBJETO PARA MOSTRAR
         return {
             id: d.id,
             name: d.name,
@@ -19,7 +19,7 @@ const getDbDogs = async () => {  // CONSULTA A LA BASE DE DATOS PARA OBTENER TOD
             weight: d.weight,
             life_span: d.life_span,
             image: d.image,
-            temperaments: d.Temperaments.map((t) => t.name),
+            temperaments: d.Temperaments.map((t) => t.name),  // SOLO SE QUEDA CON EL NOMBRE
             from: 'DB'
         }
     });

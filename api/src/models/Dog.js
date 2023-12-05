@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
         },
         name: {
             type: DataTypes.STRING,
-            unique: true,
+            unique: true,  // EL NOMBRE DEBE SER UNICO
             allowNull: false
         },
         height: {
@@ -32,5 +32,5 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             defaultValue: "DB"  // ESTABLECE UN VALOR PREDETERMINADO SINO SE LE PROPORCIONA UNO
         },
-    }, { timestamps: false })
+    }, { timestamps: false })  // OBJETO DE OPCIONES QUE DESACTIVA LA CREACION AUTOMATICA DE CAMPOS
 };

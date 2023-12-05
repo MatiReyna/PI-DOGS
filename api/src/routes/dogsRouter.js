@@ -5,13 +5,13 @@ const { getAllByName } = require('../controller/getAllByName');
 const { getTemperament } = require('../controller/getTemperament');
 const { postDog } = require('../controller/postDog');
 
-const dogsRouter = Router();
+const dogsRouter = Router();  // CREA UNA INSTANCIA DE ROUTER
 
 dogsRouter.get('/', async (req, res) => {
     try {
         const { name } = req.query;
 
-        await getTemperament();  // OBTENEMOS LOS TEMP. EXISTENTES PARA PODER ASOCIARLOS
+        await getTemperament();  // LLAMA A LA FUNCION DE LOS TEMPERAMENTOS PARA SEGURARSE QUE ESTEN DISPONIBLES PARA USAR
 
         if (name) {  // SI LLEGA UN PARAMETRO NAME, BUSCAMOS LOS PERROS QUE CIONCIDAN
             const dogName = await getAllByName(name);

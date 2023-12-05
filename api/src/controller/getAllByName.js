@@ -9,9 +9,9 @@ const getAllByName = async (name) => {  // FUNCION QUE DEVUELVE EL PERRO CON EL 
 
     const filterDogDb = await Dog.findAll({  // BUSCAMOS EN LA DB QUE COINCIDAN CON EL NAME
         where: { name: name },
-        include: {
+        include: {  // QUE INCLUYAN LOS TEMPERAMENTOS
             model: Temperament,
-            attributes: ['name'],
+            attributes: ['name'],  // EL NOMBRE
             through: {
                 attributes: []
             }
