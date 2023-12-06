@@ -7,7 +7,8 @@ const initialState = {
     ordenBy: '',
     sortBy: '',
     currentPage: 1,  // PAGINA ACTUAL
-    dogsPerPage: 8  // CANTIDAD DE PERROS POR PAGINA
+    dogsPerPage: 8,  // CANTIDAD DE PERROS POR PAGINA
+    ordenByWeight: '',
 };
 
 const Reduce = (state = initialState, action) => {
@@ -64,13 +65,13 @@ const Reduce = (state = initialState, action) => {
             }
         case 'SORT_BY_WEIGHT':
             const sortedByWeight = state.filteredDogs.slice().sort((a, b) => {
-                const order = state.ordenBy === 'asc' ? 1 : -1;
+                const order = state.ordenByWeight === 'asc' ? 1 : -1;
                 return order * (a.weight - b.weight);
             });
             return {
                 ...state,
                 filteredDogs: sortedByWeight,
-                ordenBy: state.ordenBy === 'asc' ? 'desc' : 'asc'
+                ordenByWeight: state.ordenByWeight === 'asc' ? 'desc' : 'asc'
             }
         case 'SEARCH_BREED':
             return {

@@ -41,7 +41,6 @@
     transition: background-color 0.3s ease;
     /* Efecto de transición suave en el cambio de color de fondo */
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-    /* Puedes agregar más estilos según sea necesario */
 }
 
 .container-home button:hover {

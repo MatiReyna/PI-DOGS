@@ -77,7 +77,6 @@ const HomePage = () => {
                         <option value='name'>Name</option>
                         <option value='weight'>Weight</option>
                     </select>
-                    {/* <button onClick={handleSortOrderChange}>Toggle Sort Order</button> */}
                 </div>
                 <div>
                     <label>Origin:</label>
