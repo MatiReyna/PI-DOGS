@@ -11,7 +11,7 @@ const Card = ({ dog }) => {
                 <h2>Name: {dog.name}</h2>
                 <p>Weight: {dog.weight}</p>
                 <p>Temperaments: {dog.temperaments ? dog.temperaments.join(', ') : 'N/A'}</p>
-
+                
                 <Link to={`/home/detail/${dog.id}`}>
                     <button>Detail 👀</button>
                 </Link>
@@ -19,5 +19,7 @@ const Card = ({ dog }) => {
         </div>
     )
 };
+
+// LOS TEMP SE MUESTRAN COMO UNA CADENA SEPARADA POR "," SI LO HAY, CASO CONTRARIO N/A
 
 export default Card;

@@ -6,8 +6,6 @@ import Card from '../Card/Card';
 import Paginado from '../Paginado/Paginado';
 import NavBar from '../NavBar/NavBar';
 
-import './HomePage.style.css';
-
 const HomePage = () => {
 
     const dispatch = useDispatch();
@@ -16,32 +14,38 @@ const HomePage = () => {
     const dogsPerPage = useSelector((state) => state.dogsPerPage);
     const temperaments = useSelector((state) => state.temperaments);
     const filteredDogs = useSelector((state) => state.filteredDogs);
+    // const sortCriteria = useSelector((state) => state.sortCriteria);
     const sortOrder = useSelector((state) => state.sortOrder);
 
-    const [selectedTemperament, setSelectedTemperament] = useState('');
+    const [selectedTemperament, setSelectedTemperament] = useState('');  // ESTADO LOCAL DE LOS TEMPERAMENTOS
 
     useEffect(() => {
         dispatch(getAllDogs())
         dispatch(getTemperaments())
     }, [dispatch]);
 
-    const handlePageChange = (pageNumber) => {
+    const handlePageChange = (pageNumber) => {  // PARA CAMBIAR LA PAGINA DE PERROS
         dispatch(pageChange(pageNumber))
     };
 
     const handleTemperamentFilter = () => {
-        dispatch(pageChange(1))
-        dispatch(filterByTemperament(selectedTemperament))
+        dispatch(pageChange(1))  // QUE ME VUELVA A LA PAGINA 1 ASI NO SE PONE EN BLANCO
+        dispatch(filterByTemperament(selectedTemperament))  // DESPACHA LA ACCION DE LOS TEMPERAMENTOS FILTRADOS
     };
 
-    const handleSortChange = (value) => {
+    const handleSortChange = (value) => {  // LA FORMA EN LA QUE SE ORDENA LOS PERROS POR NOMBRE O POR PESO
         dispatch(orderByName(value, sortOrder))
     };
 
-    const handleOrigin = (event) => {
+    // const handleSortOrderChange = () => {
+    //     dispatch(filterByWeight(sortCriteria, sortOrder === 'asc'? 'desc' : 'asc'))
+    // };
+
+    const handleOrigin = (event) => {  // SEGUN DE DONDE SON
         dispatch(originFrom(event.target.value))
     };
 
+    // CALCULA LOS INDECES DE LOS PERROS QUE SE MOSTRARAN EN LA PAGINA Y LA CANTIDAD TOTAL DE PAGINAS
     const indexOfLastPage = currentPage * dogsPerPage;
     const indexOfFirstPage = indexOfLastPage - dogsPerPage;
     const currentDogs = filteredDogs.slice(indexOfFirstPage, indexOfLastPage);
@@ -51,7 +55,7 @@ const HomePage = () => {
     return (
         <div>
             <NavBar />
-           
+            
             <div className='container-home'>
                 <div>
                     <label>Filter by Temperament:</label>
@@ -73,6 +77,7 @@ const HomePage = () => {
                         <option value='name'>Name</option>
                         <option value='weight'>Weight</option>
                     </select>
+                    {/* <button onClick={handleSortOrderChange}>Toggle Sort Order</button> */}
                 </div>
                 <div>
                     <label>Origin:</label>

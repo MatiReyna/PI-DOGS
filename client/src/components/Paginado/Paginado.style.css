@@ -2,22 +2,16 @@
     font-family: 'Lucida Console', Monaco, monospace;
     font-weight: bold;
     font-size: 1em;
-    /* Tamaño de la letra */
     padding: 8px 15px;
-    /* Ajusta el relleno según sea necesario */
     background-color: #ccd5ae;
-    /* Color terciario de la paleta */
     color: #000814;
-    /* Color de acento 2 de la paleta */
     border: none;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    /* Efecto de transición suave en el cambio de color de fondo */
     margin: 3px;
 }
 
 .paginado button:hover {
     background-color: #e9edc9;
-    /* Cambia al color principal de la paleta al pasar el ratón por encima */
 }

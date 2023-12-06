@@ -8,8 +8,6 @@ import './NavBar.style.css';
 const NavBar = () => {
     return (
         <div className='searchbar'>
-            {/* <SearchBar /> */}
-
             <Link to='/'>
                 <button>Back App Dog</button>
             </Link>

@@ -7,12 +7,12 @@ import './SearchBar.style.css';
 
 const SearchBar = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();  // PARA OBTENER EL OBJETO DISPATCH
 
     const [searchDog, setSearchDog] = useState('');
 
     const handleSearch = () => {
-        dispatch(getByName(searchDog))
+        dispatch(getByName(searchDog))  // DESPACHA UNA ACCION CON EL VALOR ACTUAL DEL ESTADO
     };
 
     return (

@@ -11,7 +11,7 @@ const FormPage = () => {
 
     const temperaments = useSelector((state) => state.temperaments);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({  // ESTADO LOCAL PARA EL FORMULARIO
         name: '',
         height: '',
         weight: '',
@@ -20,40 +20,40 @@ const FormPage = () => {
         temperaments: []
     });
 
-    const [isDogCreated, setIsDogCreated] = useState(false);
+    const [isDogCreated, setIsDogCreated] = useState(false);  // ESTADO LOCAL PARA CUANDO EL PERRO ES CREADO
 
-    const [formErrors, setFormErrors] = useState({});
+    const [formErrors, setFormErrors] = useState({});  // ESTADO LOCAL PARA LOS ERRORES
 
     useEffect(() => {
-        dispatch(getTemperaments())
+        dispatch(getTemperaments())  // ME TRAIGO LOS TEMPERAMENTOS PARA QUE PUEDA SELECCIONARLOS
         setFormErrors(validateForm(formData))
-    }, [formData]);
+    }, [formData]);  // ACTUALIZA EL ERROR DEL FORM CADA VEZ QUE CAMBIA
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e) => {  // MANEJA CAMBIOS EN LOS CAMPOS DE LOS FORMULARIO Y ACTUALIZA EL ESTADO FORMDATA
         const { name, value } = e.target
         setFormData((prevData) => ({ ...prevData, [name]: value }))
     };
 
-    const handleTemperamentChange = (e) => {
+    const handleTemperamentChange = (e) => {  // MANEJA CAMBIOS EN LAS OPCIONES QUE SE SELECCIONAN EN EL FORMULARIO Y ACTUALIZA EL ESTADO
         const selectedTemperaments = Array.from(
             e.target.selectedOptions, (option) => option.value
         )
         setFormData((prevData) => ({ ...prevData, temperaments: selectedTemperaments }))
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {  // FUNCION QUE SE LLAMA AL ENVIAR EL FORMULARIO
         e.preventDefault()
         console.log('desactivado')
 
         try {
-            await dispatch(createDog(formData))
-            setIsDogCreated(true)
+            await dispatch(createDog(formData))  // DESPACHA LA ACCION PARA CREAR UN PERRO CON LA INFOR D LOS CAMPOS DEL FORM
+            setIsDogCreated(true)  // Y ACTUALIZA EL ESTADO EN CASO DE EXITO
         } catch (error) {
             console.error('Error creating dog:', error)
         }
     };
 
-    const handleGoBack = () => {
+    const handleGoBack = () => {  // VUELVE A LA PAGINA DE INICIO CUANDO SE HACE CLICK
         window.location.href = '/home';
     };
 
