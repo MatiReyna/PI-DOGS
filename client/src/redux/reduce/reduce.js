@@ -66,7 +66,9 @@ const Reduce = (state = initialState, action) => {
         case 'SORT_BY_WEIGHT':
             const sortedByWeight = state.filteredDogs.slice().sort((a, b) => {
                 const order = state.ordenByWeight === 'asc' ? 1 : -1;
-                return order * (a.weight - b.weight);
+                const weightA = parseFloat(a.weight);
+                const weightB = parseFloat(b.weight);
+                return order * (weightA - weightB);
             });
             return {
                 ...state,

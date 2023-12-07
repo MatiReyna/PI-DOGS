@@ -8,15 +8,15 @@ const validateForm = (formData) => {
 
     // VALIDACION DEL CAMPO HEIGHT
 
-    const height = /^\d+(\.\d{1,2})?-\d+(\.\d{1,2})?$/;
-    if (!formData.height || !height.test(formData.height)) {
+    const heightFormat = /^\d+(\.\d{1,2})?-\d+(\.\d{1,2})?$/;
+    if (!formData.height || !heightFormat.test(formData.height)) {
         errors.height = 'Enter a valid height (min-max)'
     };
 
     // VALIDACION DEL CAMPO WEIGHT
 
-    const weight = /^\d+(\.\d{1,2})?-\d+(\.\d{1,2})?$/;
-    if (!formData.weight || !weight.test(formData.weight)) {
+    const weightFormat = /^\d+(\.\d{1,2})?-\d+(\.\d{1,2})?$/;
+    if (!formData.weight || !weightFormat.test(formData.weight)) {
         errors.weight = 'Enter a valid weight (min-max)'
     };
 

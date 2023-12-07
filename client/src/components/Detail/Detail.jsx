@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -13,7 +13,21 @@ const Detail = () => {
 
     const allDogs = useSelector((state) => state.dogs);
 
+    const [loading, setLoading] = useState(true);
+
     const dogDetail = allDogs.find((d) => d.id == id);
+
+    useEffect(() => {
+        const delay = setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+
+        return () => clearTimeout(delay)
+    }, [id]);
+
+    if (loading) {
+        return <p>Cargando detalles del perro...</p>
+    };
 
     if (!dogDetail) {
         return 'Dog not found';

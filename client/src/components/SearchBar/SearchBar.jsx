@@ -13,6 +13,7 @@ const SearchBar = () => {
 
     const handleSearch = () => {
         dispatch(getByName(searchDog))  // DESPACHA UNA ACCION CON EL VALOR ACTUAL DEL ESTADO
+        setSearchDog('');  // LIMPIA EL INPUT DESPUES DE LA BUSQUEDA
     };
 
     return (

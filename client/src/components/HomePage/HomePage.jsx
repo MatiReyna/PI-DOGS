@@ -6,6 +6,8 @@ import Card from '../Card/Card';
 import Paginado from '../Paginado/Paginado';
 import NavBar from '../NavBar/NavBar';
 
+import './HomePage.style.css';
+
 const HomePage = () => {
 
     const dispatch = useDispatch();
@@ -14,7 +16,6 @@ const HomePage = () => {
     const dogsPerPage = useSelector((state) => state.dogsPerPage);
     const temperaments = useSelector((state) => state.temperaments);
     const filteredDogs = useSelector((state) => state.filteredDogs);
-    // const sortCriteria = useSelector((state) => state.sortCriteria);
     const sortOrder = useSelector((state) => state.sortOrder);
 
     const [selectedTemperament, setSelectedTemperament] = useState('');  // ESTADO LOCAL DE LOS TEMPERAMENTOS
@@ -33,13 +34,21 @@ const HomePage = () => {
         dispatch(filterByTemperament(selectedTemperament))  // DESPACHA LA ACCION DE LOS TEMPERAMENTOS FILTRADOS
     };
 
-    const handleSortChange = (value) => {  // LA FORMA EN LA QUE SE ORDENA LOS PERROS POR NOMBRE O POR PESO
+    // const handleSortChange = (value) => {  // LA FORMA EN LA QUE SE ORDENA LOS PERROS POR NOMBRE O POR PESO
+    //     if (value === 'weight') {
+    //         dispatch(filterByWeight(value, sortOrder))
+    //     } else {
+    //         dispatch(orderByName(value, sortOrder))
+    //     }
+    // };
+
+    const handleSortByName = (value) => {
         dispatch(orderByName(value, sortOrder))
     };
 
-    // const handleSortOrderChange = () => {
-    //     dispatch(filterByWeight(sortCriteria, sortOrder === 'asc'? 'desc' : 'asc'))
-    // };
+    const handleSortByWeight = (value) => {
+        dispatch(filterByWeight(value, sortOrder))
+    };
 
     const handleOrigin = (event) => {  // SEGUN DE DONDE SON
         dispatch(originFrom(event.target.value))
@@ -71,11 +80,25 @@ const HomePage = () => {
                     </select>
                     <button onClick={handleTemperamentFilter}>Apply Temperament Filter</button>
                 </div>
-                <div>
+                {/* <div>
                     <label>Sort by:</label>
                     <select onChange={(e) => handleSortChange(e.target.value)}>
                         <option value='name'>Name</option>
                         <option value='weight'>Weight</option>
+                    </select>
+                </div> */}
+                <div>
+                    <label>Sort by Name</label>
+                    <select onChange={(e) => handleSortByName(e.target.value)}>
+                        <option value='asc'>A-Z</option>
+                        <option value='desc'>Z-A</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Sort by Weight</label>
+                    <select onChange={(e) => handleSortByWeight(e.target.value)}>
+                        <option value='asc'>Min-Max</option>
+                        <option value='desc'>Max-Min</option>
                     </select>
                 </div>
                 <div>
