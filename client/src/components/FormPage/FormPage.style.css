@@ -78,6 +78,11 @@ select {
     background-color: #cbf3f0;
 }
 
+.button-disabled button {
+    background-color: gray;
+    pointer-events: none;
+}
+
 .error-message {
     color: #9d0208;
 }

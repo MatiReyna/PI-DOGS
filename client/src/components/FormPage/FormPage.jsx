@@ -119,7 +119,7 @@ const FormPage = () => {
                     }
                 </select>
                 {formErrors.temperaments && <p className='error-message'>{formErrors.temperaments}</p>}
-                <div className='button-create'>
+                <div className={Object.keys(formErrors).length === 0 ? 'button-create' : 'button-disabled'}>
                     <button type='submit' disabled={Object.keys(formErrors).length === 0 ? false : true}>Create Dog</button>
                 </div>
             </form>

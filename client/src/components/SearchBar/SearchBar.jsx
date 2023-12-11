@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getByName } from '../../redux/actions/actions';
+import { getByName, pageChange } from '../../redux/actions/actions';
 
 import './SearchBar.style.css';
 
@@ -12,6 +12,7 @@ const SearchBar = () => {
     const [searchDog, setSearchDog] = useState('');
 
     const handleSearch = () => {
+        dispatch(pageChange(1))
         dispatch(getByName(searchDog))  // DESPACHA UNA ACCION CON EL VALOR ACTUAL DEL ESTADO
         setSearchDog('');  // LIMPIA EL INPUT DESPUES DE LA BUSQUEDA
     };

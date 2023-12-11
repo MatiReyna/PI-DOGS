@@ -15,3 +15,8 @@
 .paginado button:hover {
     background-color: #e9edc9;
 }
+
+.current {
+    border-color: red;
+    pointer-events: none;
+}

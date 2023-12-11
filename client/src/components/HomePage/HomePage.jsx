@@ -43,14 +43,17 @@ const HomePage = () => {
     // };
 
     const handleSortByName = (value) => {
+        dispatch(pageChange(1))
         dispatch(orderByName(value, sortOrder))
     };
 
     const handleSortByWeight = (value) => {
+        dispatch(pageChange(1))
         dispatch(filterByWeight(value, sortOrder))
     };
 
     const handleOrigin = (event) => {  // SEGUN DE DONDE SON
+        dispatch(pageChange(1))
         dispatch(originFrom(event.target.value))
     };
 
