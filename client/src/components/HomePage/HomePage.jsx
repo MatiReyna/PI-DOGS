@@ -34,10 +34,6 @@ const HomePage = () => {
         dispatch(filterByTemperament(selectedTemperament))  // DESPACHA LA ACCION DE LOS TEMPERAMENTOS FILTRADOS
     };
 
-    // const handleTempe = (event) => {
-    //     dispatch(tempe(event.target.value))
-    // }
-
     // const handleSortChange = (value) => {  // LA FORMA EN LA QUE SE ORDENA LOS PERROS POR NOMBRE O POR PESO
     //     if (value === 'weight') {
     //         dispatch(filterByWeight(value, sortOrder))
@@ -70,8 +66,6 @@ const HomePage = () => {
 
     return (
         <div>
-            {/* <button value='Agile' onClick={handleTempe}>temp Playful</button> */}
-            {/* <button>peso menor</button> */}
             <NavBar />
             <div className='container-home'>
                 <div>
@@ -125,7 +119,6 @@ const HomePage = () => {
                     ))
                 }
             </div>
-
             <div>
                 <Paginado currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
             </div>
