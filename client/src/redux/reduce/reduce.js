@@ -1,3 +1,5 @@
+import { GET_ALL_DOGS, GET_BY_ID, GET_BY_NAME, GET_TEMPERAMENTS, CREATE_DOG, FILTER_DOG_BY_TEMPERAMENT, ORDER_BY_NAME, SORT_BY_WEIGHT, PAGINATE, SEARCH_BREED, ORIGIN_DOG } from '../actions/actions-types';
+
 const initialState = {
     dogs: [],  // UNA LISTA DE PERROS
     dogsDetail: null,  // DETALLE DE UN PERRO
@@ -13,34 +15,34 @@ const initialState = {
 
 const Reduce = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_ALL_DOGS':
+        case GET_ALL_DOGS:
             return {
                 ...state,
                 dogs: action.payload,  // ACTUALIZA LA LISTA DE PERROS CON LOS PERROS OBTENIDOS
                 filteredDogs: action.payload
             }
-        case 'GET_BY_ID':
+        case GET_BY_ID:
             return {
                 ...state,
                 dogsDetail: action.payload
             }
-        case 'GET_BY_NAME':
+        case GET_BY_NAME:
             return {
                 ...state,
                 filteredDogs: action.payload  // ACTUALIZA LA LISTA FILTRADA PARA BUSCAR ESE NOMBRE
             }
-        case 'CREATE_DOG':
+        case CREATE_DOG:
             return {
                 ...state,
                 dogs: [...state.dogs, action.payload],  // AGREGA EL PERRO CREADO A LA LISTA DE PERROS Y A LOS FILTRADOS
                 filteredDogs: [...state.filteredDogs, action.payload]
             }
-        case 'GET_TEMPERAMENTS':
+        case GET_TEMPERAMENTS:
             return {
                 ...state,
                 temperaments: action.payload
             }
-        case 'FILTER_DOG_BY_TEMPERAMENT':
+        case FILTER_DOG_BY_TEMPERAMENT:
             if (action.payload === 'All') {
                 return {
                     ...state,
@@ -53,7 +55,7 @@ const Reduce = (state = initialState, action) => {
                 ...state,
                 filteredDogs: filterBytemperaments
             }
-        case 'ORDER_BY_NAME':  // ORDENA ALFABETICAMENTE LA LISTA DE PERROS
+        case ORDER_BY_NAME:  // ORDENA ALFABETICAMENTE LA LISTA DE PERROS
             const sortedByName = state.filteredDogs.slice().sort((a, b) => {  // CREA UNA LISTA SUPERFICIAL PERO NO MODIFICA LA ORIGINAL
                 const order = state.ordenBy === 'asc' ? 1 : -1;  // SI ES ASC EL ORDER ES 1 CASO CONTRARIO -1
                 return order * a.name.localeCompare(b.name);  // COMPARA LOS NOMBRES 
@@ -63,7 +65,7 @@ const Reduce = (state = initialState, action) => {
                 filteredDogs: sortedByName,
                 ordenBy: state.ordenBy === 'asc' ? 'desc' : 'asc'
             }
-        case 'SORT_BY_WEIGHT':
+        case SORT_BY_WEIGHT:
             const sortedByWeight = state.filteredDogs.slice().sort((a, b) => {
                 const order = state.ordenByWeight === 'asc' ? 1 : -1;
                 const weightA = parseFloat(a.weight);
@@ -75,17 +77,17 @@ const Reduce = (state = initialState, action) => {
                 filteredDogs: sortedByWeight,
                 ordenByWeight: state.ordenByWeight === 'asc' ? 'desc' : 'asc'
             }
-        case 'SEARCH_BREED':
+        case SEARCH_BREED:
             return {
                 ...state,
                 searchResults: action.payload  // ACTUALIZA EL RESULTADO DE LA BUSQUEDA CON LOS DATOS OBTENIDOS
             }
-        case 'PAGINATE':
+        case PAGINATE:
             return {
                 ...state,
                 currentPage: action.payload  // ACTUALIZA LA PAGINA ACTUAL
             }
-        case 'ORIGIN_DOG':
+        case ORIGIN_DOG:
             if (action.payload === 'All') {
                 return {
                     ...state,
